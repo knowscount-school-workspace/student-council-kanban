@@ -27,7 +27,8 @@
 
 <script>
 import draggable from "vuedraggable";
-import axios from 'axios';
+// import axios from 'axios';
+import data from "../src/assets/mock.json"
 import TaskCard from "./components/TaskCard.vue";
 export default {
   name: "App",
@@ -41,8 +42,12 @@ export default {
     };
   },
   mounted () {
-    axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
-    // axios.get('http://65.108.21.102:3001/backlog').then(response => (this.columns = response))
+    // get the json data from api
+    // axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
+    this.columns = data
+    const unwrapped = JSON.parse(JSON.stringify(this.columns));
+    // eslint-disable-next-line no-console
+    console.log(unwrapped)
   }
 };
 </script>

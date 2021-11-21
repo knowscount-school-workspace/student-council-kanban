@@ -27,6 +27,7 @@
 
 <script>
 import draggable from "vuedraggable";
+// import axios from 'axios';
 import TaskCard from "./components/TaskCard.vue";
 export default {
   name: "App",
@@ -153,6 +154,9 @@ export default {
         }
       ]
     };
+  },
+  mounted () {
+    // axios.get('https://kanban.cloudlap.top/api/').then(response => (this.columns = response))
   }
 };
 </script>

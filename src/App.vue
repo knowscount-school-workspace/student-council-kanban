@@ -27,8 +27,7 @@
 
 <script>
 import draggable from "vuedraggable";
-// import axios from 'axios';
-import data from "../src/assets/mock.json"
+import axios from 'axios';
 import TaskCard from "./components/TaskCard.vue";
 export default {
   name: "App",
@@ -43,8 +42,7 @@ export default {
   },
   mounted () {
     // get the json data from api
-    // axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
-    this.columns = data
+    axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
     const unwrapped = JSON.parse(JSON.stringify(this.columns));
     // eslint-disable-next-line no-console
     console.log(unwrapped)

@@ -41,10 +41,10 @@ export default {
     };
   },
   mounted () {
-    let urlOne = 'http://localhost:3001/backlog'
-    let urlTwo = 'http://localhost:3001/inprogress'
-    let urlThree = 'http://localhost:3001/review'
-    let urlFour = 'http://localhost:3001/done'
+    let urlOne = process.env.VUE_APP_ROOT_API + 'backlog'
+    let urlTwo = process.env.VUE_APP_ROOT_API + 'inprogress'
+    let urlThree = process.env.VUE_APP_ROOT_API + 'review'
+    let urlFour = process.env.VUE_APP_ROOT_API + 'done'
     const requestOne = axios.get(urlOne)
     const requestTwo = axios.get(urlTwo)
     const requestThree = axios.get(urlThree)

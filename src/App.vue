@@ -27,6 +27,7 @@
 
 <script>
 import draggable from "vuedraggable";
+import axios from 'axios';
 import TaskCard from "./components/TaskCard.vue";
 export default {
   name: "App",
@@ -36,123 +37,39 @@ export default {
   },
   data() {
     return {
-      columns: [
+      columns: [],
+    };
+  },
+  mounted () {
+    let urlOne = process.env.VUE_APP_ROOT_API + 'backlog'
+    let urlTwo = process.env.VUE_APP_ROOT_API + 'inprogress'
+    let urlThree = process.env.VUE_APP_ROOT_API + 'review'
+    let urlFour = process.env.VUE_APP_ROOT_API + 'done'
+    const requestOne = axios.get(urlOne)
+    const requestTwo = axios.get(urlTwo)
+    const requestThree = axios.get(urlThree)
+    const requestFour = axios.get(urlFour)
+    // axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
+    axios.all([requestOne, requestTwo, requestThree, requestFour]).then(axios.spread((...responses) => {
+      this.columns = [
         {
           title: "Backlog",
-          tasks: [
-            {
-              id: 1,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-            {
-              id: 2,
-              title: "Provide documentation on integrations",
-              date: "Sep 12"
-            },
-            {
-              id: 3,
-              title: "Design shopping cart dropdown",
-              date: "Sep 9",
-              type: "Design"
-            },
-            {
-              id: 4,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-            {
-              id: 5,
-              title: "Test checkout flow",
-              date: "Sep 15",
-              type: "QA"
-            }
-          ]
+          tasks: responses[0].data
         },
         {
           title: "In Progress",
-          tasks: [
-            {
-              id: 6,
-              title: "Design shopping cart dropdown",
-              date: "Sep 9",
-              type: "Design"
-            },
-            {
-              id: 7,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-            {
-              id: 8,
-              title: "Provide documentation on integrations",
-              date: "Sep 12",
-              type: "Backend"
-            }
-          ]
+          tasks: responses[1].data
         },
         {
           title: "Review",
-          tasks: [
-            {
-              id: 9,
-              title: "Provide documentation on integrations",
-              date: "Sep 12"
-            },
-            {
-              id: 10,
-              title: "Design shopping cart dropdown",
-              date: "Sep 9",
-              type: "Design"
-            },
-            {
-              id: 11,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-            {
-              id: 12,
-              title: "Design shopping cart dropdown",
-              date: "Sep 9",
-              type: "Design"
-            },
-            {
-              id: 13,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            }
-          ]
+          tasks: responses[2].data
         },
         {
           title: "Done",
-          tasks: [
-            {
-              id: 14,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-            {
-              id: 15,
-              title: "Design shopping cart dropdown",
-              date: "Sep 9",
-              type: "Design"
-            },
-            {
-              id: 16,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            }
-          ]
+          tasks: responses[3].data
         }
-      ]
-    };
+      ];
+    }));
   }
 };
 </script>

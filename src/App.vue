@@ -37,12 +37,39 @@ export default {
   },
   data() {
     return {
-      columns: []
+      columns: [],
     };
   },
   mounted () {
-    axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
-    // axios.get('http://65.108.21.102:3001/backlog').then(response => (this.columns = response))
+    let urlOne = 'http://localhost:3001/backlog'
+    let urlTwo = 'http://localhost:3001/inprogress'
+    let urlThree = 'http://localhost:3001/review'
+    let urlFour = 'http://localhost:3001/done'
+    const requestOne = axios.get(urlOne)
+    const requestTwo = axios.get(urlTwo)
+    const requestThree = axios.get(urlThree)
+    const requestFour = axios.get(urlFour)
+    // axios.get('http://localhost:3001/backlog').then(response => (this.columns = response))
+    axios.all([requestOne, requestTwo, requestThree, requestFour]).then(axios.spread((...responses) => {
+      this.columns = [
+        {
+          title: "Backlog",
+          tasks: responses[0].data
+        },
+        {
+          title: "In Progress",
+          tasks: responses[1].data
+        },
+        {
+          title: "Review",
+          tasks: responses[2].data
+        },
+        {
+          title: "Done",
+          tasks: responses[3].data
+        }
+      ];
+    }));
   }
 };
 </script>

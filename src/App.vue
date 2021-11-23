@@ -9,7 +9,7 @@
         >
           <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">{{column.title}}</p>
           <!-- Draggable component comes from vuedraggable. It provides drag & drop functionality -->
-          <draggable :list="column.tasks" :animation="200" ghost-class="ghost-card" group="tasks">
+          <draggable :list="column.tasks" :animation="200" ghost-class="ghost-card" group="tasks" :empty-insert-threshold="100">
             <!-- Each element from here will be draggable and animated. Note :key is very important here to be unique both for draggable and animations to be smooth & consistent. -->
             <task-card
               v-for="(task) in column.tasks"

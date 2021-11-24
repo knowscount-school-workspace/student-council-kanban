@@ -16,5 +16,5 @@ jobs:
                   port: ${{ secrets.PORT }}
                   script: |
                       cd ${{ secrets.PATH }}
-                      git pull
-                      sudo yarn build
+                      git pull origin master
+                      echo ${{ secrets.PASSWORD }} | sudo -S yarn build
